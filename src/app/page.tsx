@@ -65,7 +65,7 @@ export default function HomePage() {
           <button
             type="submit"
             className="w-full bg-purple-600 text-white py-3 rounded-xl hover:bg-purple-700 transition disabled:opacity-70 disabled:cursor-not-allowed"
-            disabled={status.isLoading || !phone}
+            disabled={status.isLoading ?? !phone}
           >
             {status.isLoading ? "Processing..." : "Send"}
           </button>
