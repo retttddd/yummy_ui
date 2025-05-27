@@ -3,7 +3,7 @@ export default function HomePage() {
   return (
     <main className="flex min-h-screen items-center justify-center bg-gradient-to-br from-[#2e026d] to-[#15162c] text-white px-4">
       <div className="backdrop-blur-lg bg-white/10 border border-white/20 rounded-2xl p-6 w-full max-w-sm shadow-2xl">
-        <h1 className="text-center text-2xl font-semibold mb-6">Podaj numer telefonu</h1>
+        <h1 className="text-center text-2xl font-semibold mb-6">Enter your phone number</h1>
         <form className="flex flex-col gap-4">
           <input
             type="tel"
