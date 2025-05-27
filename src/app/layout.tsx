@@ -16,7 +16,7 @@ const geist = Geist({
 });
 
 async function TopBar() {
-  const posts = await db.query.company.findMany();
+  const posts = await db.query.companies.findMany();
   console.log(posts);
   return (
     <header className="w-full backdrop-blur-md bg-white/5 border-b border-white/20 text-white px-6 py-4 flex justify-between items-center shadow-md">

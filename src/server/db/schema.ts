@@ -12,7 +12,7 @@ import { index, pgTableCreator } from "drizzle-orm/pg-core";
  */
 export const createTable = pgTableCreator((name) => `yummy_ui_${name}`);
 
-export const company = createTable(
+export const companies = createTable(
   "company",
   (d) => ({
     id: d.integer().primaryKey().generatedByDefaultAsIdentity(),
@@ -25,3 +25,34 @@ export const company = createTable(
   }),
   (t) => [index("name_idx").on(t.name)],
 );
+
+export const customers = createTable(
+  "customer",
+  (d) => ({
+    id: d.integer().primaryKey().generatedByDefaultAsIdentity(),
+    phone: d.varchar({ length: 15 }),
+    createdAt: d
+      .timestamp({ withTimezone: true })
+      .default(sql`CURRENT_TIMESTAMP`)
+      .notNull(),
+    updatedAt: d.timestamp({ withTimezone: true }).$onUpdate(() => new Date()),
+  }),
+  (t) => [index("phone_idx").on(t.phone)],
+);
+
+export const products = createTable(
+  "product",
+  (d) => ({
+    id: d.serial("id").primaryKey(),
+    nameProduct: d.varchar({ length: 256 }).notNull(),
+    price: d.varchar({ length: 15 }).notNull(),
+    urlToImage: d.varchar({ length: 1024 }).notNull(),
+    createdAt: d
+      .timestamp({ withTimezone: true })
+      .default(sql`CURRENT_TIMESTAMP`)
+      .notNull(),
+    updatedAt: d.timestamp({ withTimezone: true }).$onUpdate(() => new Date()),
+  }),
+  (t) => [index("nameProduct_idx").on(t.nameProduct)],
+);
+
