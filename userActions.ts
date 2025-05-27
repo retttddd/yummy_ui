@@ -31,9 +31,16 @@ export const addUser = async (phone: string) => {
       .limit(1);
 
     if (existingUser.length > 0) {
+      // Update the existing user to refresh the updatedAt timestamp
+      await db.update(customers)
+        .set({ phone })
+        .where(eq(customers.phone, phone));
+
+      revalidatePath("/");
+
       return {
-        success: false,
-        error: "A user with this phone number already exists."
+        success: true,
+        message: "User updated successfully."
       };
     }
 
