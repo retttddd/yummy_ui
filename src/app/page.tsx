@@ -17,7 +17,7 @@ export default function HomePage() {
             type="submit"
             className="w-full bg-purple-600 text-white py-3 rounded-xl hover:bg-purple-700 transition"
           >
-            Wyślij
+            Send
           </button>
         </form>
       </div>
