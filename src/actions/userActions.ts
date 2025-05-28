@@ -40,7 +40,7 @@ export const addUser = async (phone: string) => {
 
       return {
         success: true,
-        message: "User updated successfully."
+        message: "Welcome back!"
       };
     }
 
@@ -53,7 +53,7 @@ export const addUser = async (phone: string) => {
 
     return {
       success: true,
-      message: "User added successfully."
+      message: "Welcome!"
     };
   } catch (error) {
     console.error("Error adding user:", error);
