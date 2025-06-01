@@ -6,8 +6,10 @@ interface Product {
   nameProduct: string;
   price: string;
   urlToImage: string;
+  featured: boolean;
   createdAt: Date;
   updatedAt: Date | null;
+
 }
 
 function ProductCard({ product }: { product: Product }) {

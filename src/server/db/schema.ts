@@ -47,6 +47,7 @@ export const products = createTable(
     nameProduct: d.varchar({ length: 256 }).notNull(),
     price: d.varchar({ length: 15 }).notNull(),
     urlToImage: d.varchar({ length: 1024 }).notNull(),
+    featured: d.boolean(),
     createdAt: d
       .timestamp({ withTimezone: true })
       .default(sql`CURRENT_TIMESTAMP`)

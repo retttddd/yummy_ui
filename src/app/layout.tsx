@@ -3,7 +3,14 @@ import "~/styles/globals.css";
 import { type Metadata } from "next";
 import { Geist } from "next/font/google";
 import { db } from "~/server/db";
-import { ClerkProvider, SignedIn, SignedOut, SignInButton, SignUpButton, UserButton } from "@clerk/nextjs";
+import {
+  ClerkProvider,
+  SignedIn,
+  SignedOut,
+  SignInButton,
+  SignOutButton,
+} from "@clerk/nextjs";
+import LoggedOutContent from "~/app/_components/loggedOutContent";
 
 export const metadata: Metadata = {
   title: "yummy-ui",
@@ -19,15 +26,16 @@ const geist = Geist({
 async function TopBar() {
   const posts = await db.query.companies.findMany();
   return (
-    <header className="w-full backdrop-blur-md bg-white/5 border-b border-white/20 text-white px-6 py-4 flex justify-between items-center shadow-md">
+    <nav className="w-full backdrop-blur-md bg-white/5 border-b border-white/20 text-white px-6 py-4 flex justify-between items-center shadow-md">
       <div className="text-lg font-bold bg-gradient-to-r from-purple-300 to-pink-500 text-transparent bg-clip-text" style={{ fontFamily: 'var(--font-geist-sans)' }}>
         {posts.map((post) => (
           <span key={post.id}>🍽️{post.name}</span>
         ))}
       </div>
-    </header>
+    </nav>
   );
 }
+
 
 
 export default function RootLayout({
@@ -38,15 +46,20 @@ export default function RootLayout({
       <html lang="en" className={geist.variable}>
       <head />
       <body className="min-h-screen flex flex-col">
+      { TopBar()}
       <SignedOut>
-        <div className="p-4">
-          <SignInButton />
-          <SignUpButton />
-        </div>
+        <LoggedOutContent>
+          <SignInButton mode="modal">
+            <div className="cursor-pointer max-w-2xl p-6 sm:p-8 backdrop-blur-lg bg-white/10 border border-white/20 rounded-2xl shadow-lg hover:bg-white/20 transition">
+              <p className="text-center text-lg font-semibold">Sign in to continue</p>
+            </div>
+          </SignInButton>
+
+        </LoggedOutContent>
       </SignedOut>
 
       <SignedIn>
-        { TopBar()}
+        <SignOutButton />
         <main className="flex-1">{children}</main>
       </SignedIn>
       </body>
