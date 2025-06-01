@@ -3,6 +3,7 @@ import "~/styles/globals.css";
 import { type Metadata } from "next";
 import { Geist } from "next/font/google";
 import { db } from "~/server/db";
+import { ClerkProvider, SignedIn, SignedOut, SignInButton, SignUpButton, UserButton } from "@clerk/nextjs";
 
 export const metadata: Metadata = {
   title: "yummy-ui",
@@ -17,7 +18,6 @@ const geist = Geist({
 
 async function TopBar() {
   const posts = await db.query.companies.findMany();
-  console.log(posts);
   return (
     <header className="w-full backdrop-blur-md bg-white/5 border-b border-white/20 text-white px-6 py-4 flex justify-between items-center shadow-md">
       <div className="text-lg font-bold bg-gradient-to-r from-purple-300 to-pink-500 text-transparent bg-clip-text" style={{ fontFamily: 'var(--font-geist-sans)' }}>
@@ -34,11 +34,23 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${geist.variable}`}>
-      <body>
-        <TopBar />
+    <ClerkProvider>
+      <html lang="en" className={geist.variable}>
+      <head />
+      <body className="min-h-screen flex flex-col">
+      <SignedOut>
+        <div className="p-4">
+          <SignInButton />
+          <SignUpButton />
+        </div>
+      </SignedOut>
+
+      <SignedIn>
+        { TopBar()}
         <main className="flex-1">{children}</main>
+      </SignedIn>
       </body>
-    </html>
+      </html>
+    </ClerkProvider>
   );
 }
