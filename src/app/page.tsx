@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { db } from "~/server/db";
+import { getProducts } from "~/server/queries";
 
 interface Product {
   id: number;
@@ -31,7 +31,7 @@ function ProductCard({ product }: { product: Product }) {
 }
 
 export default async function HomePage() {
-  const products = await db.query.products.findMany();
+  const products = await getProducts();
 
   return (
     <main className="flex min-h-screen items-center justify-center bg-gradient-to-br from-[#2e026d] to-[#15162c] text-white px-4">

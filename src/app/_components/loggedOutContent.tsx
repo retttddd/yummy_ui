@@ -1,4 +1,4 @@
-import { db } from "~/server/db";
+import { getProducts } from "~/server/queries";
 import React from "react";
 
 export default async function LoggedOutContent({
@@ -6,7 +6,7 @@ export default async function LoggedOutContent({
                                                }: {
   children: React.ReactNode;
 }) {
-  const products = await db.query.products.findMany();
+  const products = await getProducts();
   const featuredProducts = products.filter((product) => product.featured === true);
 
   return (
