@@ -40,7 +40,8 @@ async function TopBar() {
 
 export default function RootLayout({
   children,
-}: Readonly<{ children: React.ReactNode }>) {
+  modal,
+}: Readonly<{ children: React.ReactNode; modal: React.ReactNode; }>) {
   return (
     <ClerkProvider>
       <html lang="en" className={geist.variable}>
@@ -59,8 +60,11 @@ export default function RootLayout({
       </SignedOut>
 
       <SignedIn>
-        <SignOutButton />
-        <main className="flex-1">{children}</main>
+        <main className="flex-1">
+          {modal}
+          {children}
+          <div id="modal-root" />
+        </main>
       </SignedIn>
       </body>
       </html>
