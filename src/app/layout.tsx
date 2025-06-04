@@ -58,6 +58,7 @@ export default function RootLayout({
       </SignedOut>
       <SignedIn>
         <main className="flex-1">
+          <SignOutButton/>
           {children}
           {modal}
           <div id="modal-root" />

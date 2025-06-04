@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { getProducts } from "~/server/queries";
+import { getOptionsForProduct, getProducts } from "~/server/queries";
 import Link from "next/link";
 
 interface Product {
@@ -35,6 +35,7 @@ function ProductCard({ product }: { product: Product }) {
 
 export default async function HomePage() {
   const products = await getProducts();
+  //const categories = await getOptionsForProduct({ groupName: "Size", productId: 2 });
 
   return (
     <main className="flex min-h-screen items-center justify-center bg-gradient-to-br from-[#2e026d] to-[#15162c] text-white px-4">

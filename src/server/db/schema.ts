@@ -2,7 +2,7 @@
 // https://orm.drizzle.team/docs/sql-schema-declaration
 
 import { sql } from "drizzle-orm";
-import { index, pgTableCreator } from "drizzle-orm/pg-core";
+import { index, json, pgTableCreator } from "drizzle-orm/pg-core";
 
 /**
  * This is an example of how to use the multi-project schema feature of Drizzle ORM. Use the same
@@ -56,4 +56,24 @@ export const products = createTable(
   }),
   (t) => [index("nameProduct_idx").on(t.nameProduct)],
 );
+
+export const productOptionGroups = createTable("product_option_group", (d) => ({
+  id: d.serial("id").primaryKey(),
+  productId: d.integer("product_id").notNull().references(() => products.id, {
+    onDelete: "cascade",
+  }),
+  name: d.varchar({ length: 100 }).notNull(), // e.g., "Size"
+}));
+
+export const productOptionValues = createTable("product_option_value", (d) => ({
+  id: d.serial("id").primaryKey(),
+  optionGroupId: d
+    .integer("option_group_id")
+    .notNull()
+    .references(() => productOptionGroups.id, {
+      onDelete: "cascade",
+    }),
+  value: d.varchar({ length: 100 }).notNull(), // e.g., "M", "L", "XL"
+  priceMultiplier: d.integer("price_multiplier"), // e.g., 1.0, 1.1, 1.2
+}));
 
