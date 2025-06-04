@@ -1,3 +1,4 @@
+"use server"
 import { Modal } from "./modal";
 import { getProductsByID } from "~/server/queries";
 import ProductModal from "~/components/modalProduct";
