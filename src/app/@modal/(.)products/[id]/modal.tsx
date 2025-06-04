@@ -19,18 +19,22 @@ export function Modal({ children }: { children: React.ReactNode }) {
   }
 
   return createPortal(
-    <div className="inset-0 bg-black/70 flex items-center justify-center z-[1000]">
+    <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-[1000]">
       <dialog
         ref={dialogRef}
-        className="w-[80%] max-w-[500px] max-h-[500px] bg-white rounded-xl p-5 relative flex items-center justify-center text-4xl font-medium"
+        className="w-[80%] max-w-[500px] max-h-[90vh] bg-white rounded-xl p-5 relative overflow-auto border-none m-auto"
         onClose={onDismiss}
+        style={{ position: 'fixed', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}
       >
-        {children}
+        <div className="flex flex-col items-center justify-center">
+          {children}
+        </div>
         <button
           onClick={onDismiss}
-          className="absolute top-2.5 right-2.5 w-12 h-12 flex items-center justify-center text-2xl font-medium rounded-[15px] hover:bg-gray-200"
+          className="absolute top-2.5 right-2.5 w-10 h-10 flex items-center justify-center text-xl font-medium rounded-full hover:bg-gray-200 transition-colors"
+          aria-label="Close"
         >
-          x
+          ✕
         </button>
       </dialog>
     </div>,

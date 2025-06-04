@@ -9,9 +9,8 @@ export default async function PhotoModal(
   params: Promise<{ id: number }>;
 }) {
   const photoId = (await params).id;
-  console.log('number', photoId);
   const product = await getProductsByID(photoId);
   if (!product) return <Modal><div>Product not found</div></Modal>;
 
-  return <Modal><ProductModal product={product}/></Modal>;
+  return <Modal><ProductModal product={product}/></Modal>
 }

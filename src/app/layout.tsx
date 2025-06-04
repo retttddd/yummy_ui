@@ -45,7 +45,6 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <html lang="en" className={geist.variable}>
-      <head />
       <body className="min-h-screen flex flex-col">
       { TopBar()}
       <SignedOut>
@@ -55,14 +54,12 @@ export default function RootLayout({
               <p className="text-center text-lg font-semibold">Sign in to continue</p>
             </div>
           </SignInButton>
-
         </LoggedOutContent>
       </SignedOut>
-
       <SignedIn>
         <main className="flex-1">
-          {modal}
           {children}
+          {modal}
           <div id="modal-root" />
         </main>
       </SignedIn>

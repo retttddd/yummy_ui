@@ -1,5 +1,6 @@
-import Link from "next/link";
+"use client"
 import Image from "next/image";
+import { useState } from "react";
 
 interface Product {
   id: number;
@@ -12,22 +13,29 @@ interface Product {
 }
 
 export default function ProductModal({ product }: { product: Product }) {
-  //console.log(product);
+  const [finalPrice, setFinalPrice] = useState(product.price)
   return (
-    <div className="flex flex-wrap contain-content backdrop-blur-lg bg-white/10 border border-white/20 rounded-2xl p-6 h-full max-w-lg shadow-2xl">
-      <div className="flex gap-2 flex-col">
-        <Link href={`/products/${product.id}`}>
+    <div className="w-full flex flex-col gap-4 text-lg">
+      <h1 className="text-2xl font-semibold text-center mb-2">Specify your order</h1>
+      <div className="flex flex-col sm:flex-row gap-6 items-center sm:items-start">
+        <div className="relative w-[210px] h-[210px]">
           <Image
             src={product.urlToImage}
-            style={{ objectFit: "contain", borderRadius: "8px", marginBottom: "1rem"}}
-            width={192}
-            height={192}
+            fill
+            style={{ objectFit: "cover", borderRadius: "8px" }}
             alt={product.nameProduct}
           />
-        </Link>
-        <div>{product.nameProduct}</div>
-        <div>{product.price} pln</div>
-        <button className="mt-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded">Add to cart</button>
+        </div>
+        <div className="flex flex-col gap-4 justify-between p-2">
+          <div className="font-medium">{product.nameProduct} <span className="text-gray-600">{product.price} pln</span></div>
+
+          <div className="flex flex-col gap-2">
+            <span className="font-bold text-xl">{finalPrice} pln</span>
+            <button className="mt-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition-colors">
+              Add to cart
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   );
