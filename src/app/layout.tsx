@@ -1,5 +1,5 @@
 import "~/styles/globals.css";
-
+import { SpeedInsights } from "@vercel/speed-insights/next"
 import { type Metadata } from "next";
 import { Geist } from "next/font/google";
 import {
@@ -44,6 +44,7 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode; modal: React.ReactNode; }>) {
   return (
     <ClerkProvider>
+      <SpeedInsights/>
       <html lang="en" className={geist.variable}>
       <body className="min-h-screen flex flex-col">
       { TopBar()}
