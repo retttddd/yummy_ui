@@ -1,13 +1,23 @@
-import { getProducts } from "~/server/queries";
+"use client"
 import React from "react";
 
-export default async function LoggedOutContent({
+interface featuredProjects {
+    id: number;
+    createdAt: Date;
+    updatedAt: Date | null;
+    nameProduct: string;
+    price: string;
+    urlToImage: string;
+    featured: boolean | null;
+}
+
+export default function LoggedOutContent({
                                                  children,
+  featuredProjects: featuredProducts,
                                                }: {
   children: React.ReactNode;
+  featuredProjects: featuredProjects[];
 }) {
-  const products = await getProducts();
-  const featuredProducts = products.filter((product) => product.featured === true);
 
   return (
     <div className="min-h-screen w-full flex flex-col items-center bg-gradient-to-br from-[#2e026d] to-[#15162c] p-6 text-white gap-6">

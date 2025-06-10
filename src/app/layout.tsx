@@ -10,7 +10,7 @@ import {
   SignOutButton,
 } from "@clerk/nextjs";
 import LoggedOutContent from "~/app/_components/loggedOutContent";
-import { getCompany } from "~/server/queries";
+import { getCompany, getProducts } from "~/server/queries";
 
 export const metadata: Metadata = {
   title: "yummy-ui",
@@ -38,10 +38,12 @@ async function TopBar() {
 
 
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
   modal,
 }: Readonly<{ children: React.ReactNode; modal: React.ReactNode; }>) {
+  const products = await getProducts();
+  const featuredProducts = products.filter((product) => product.featured === true);
   return (
     <ClerkProvider>
       <SpeedInsights/>
@@ -49,7 +51,9 @@ export default function RootLayout({
       <body className="min-h-screen flex flex-col">
       { TopBar()}
       <SignedOut>
-        <LoggedOutContent>
+        <LoggedOutContent
+        featuredProjects={featuredProducts}
+        >
           <SignInButton mode="modal">
             <div className="cursor-pointer max-w-2xl p-6 sm:p-8 backdrop-blur-lg bg-white/10 border border-white/20 rounded-2xl shadow-lg hover:bg-white/20 transition">
               <p className="text-center text-lg font-semibold">Sign in to continue</p>
