@@ -1,7 +1,6 @@
 import Image from "next/image";
-import { getOptionsForProduct, getProducts } from "~/server/queries";
+import { getProducts } from "~/server/queries";
 import Link from "next/link";
-import { useCounterStore } from "~/providers/order-store-provider";
 
 interface Product {
   id: number;
@@ -28,7 +27,7 @@ function ProductCard({ product }: { product: Product }) {
         </Link>
         <div>{product.nameProduct}</div>
         <div>{product.price} pln</div>
-        <button className="mt-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded">Add to cart</button>
+        <button  className="mt-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded"> <Link href={`/products/${product.id}`}> Configure</Link></button>
       </div>
     </div>
   );

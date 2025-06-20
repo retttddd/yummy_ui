@@ -12,6 +12,7 @@ import {
 import LoggedOutContent from "~/app/_components/loggedOutContent";
 import { getCompany, getProducts } from "~/server/queries";
 import { CounterStoreProvider } from "~/providers/order-store-provider";
+import TopBar from "~/app/_components/topBar";
 
 
 export const metadata: Metadata = {
@@ -25,37 +26,20 @@ const geist = Geist({
   variable: "--font-geist-sans",
 });
 
-async function TopBar() {
-  const posts = await getCompany();
-  return (
-    <nav className="w-full backdrop-blur-md bg-white/5 border-b border-white/20 text-white px-6 py-4 flex justify-between items-center shadow-md">
-      <div className="text-lg font-bold bg-gradient-to-r from-purple-300 to-pink-500 text-transparent bg-clip-text" style={{ fontFamily: 'var(--font-geist-sans)' }}>
-        {posts.map((post) => (
-          <span key={post.id}>🍽️{post.name}</span>
-        ))}
-      </div>
-    </nav>
-  );
-}
-
-
 
 export default async function RootLayout({
   children,
   modal,
 }: Readonly<{ children: React.ReactNode; modal: React.ReactNode; }>) {
-  const products = await getProducts();
-  const featuredProducts = products.filter((product) => product.featured === true);
   return (
     <ClerkProvider>
+      <CounterStoreProvider>
       <SpeedInsights/>
       <html lang="en" className={geist.variable}>
       <body className="min-h-screen flex flex-col">
       { TopBar()}
       <SignedOut>
-        <LoggedOutContent
-        featuredProjects={featuredProducts}
-        >
+        <LoggedOutContent>
           <SignInButton mode="modal">
             <div className="cursor-pointer max-w-2xl p-6 sm:p-8 backdrop-blur-lg bg-white/10 border border-white/20 rounded-2xl shadow-lg hover:bg-white/20 transition">
               <p className="text-center text-lg font-semibold">Sign in to continue</p>
@@ -64,17 +48,17 @@ export default async function RootLayout({
         </LoggedOutContent>
       </SignedOut>
       <SignedIn>
-        <CounterStoreProvider>
+
           <main className="flex-1">
             <SignOutButton/>
             {children}
             {modal}
             <div id="modal-root" />
           </main>
-        </CounterStoreProvider>
       </SignedIn>
       </body>
       </html>
+      </CounterStoreProvider>
     </ClerkProvider>
   );
 }
