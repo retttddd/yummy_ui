@@ -11,6 +11,8 @@ import {
 } from "@clerk/nextjs";
 import LoggedOutContent from "~/app/_components/loggedOutContent";
 import { getCompany, getProducts } from "~/server/queries";
+import { CounterStoreProvider } from "~/providers/order-store-provider";
+
 
 export const metadata: Metadata = {
   title: "yummy-ui",
@@ -62,12 +64,14 @@ export default async function RootLayout({
         </LoggedOutContent>
       </SignedOut>
       <SignedIn>
-        <main className="flex-1">
-          <SignOutButton/>
-          {children}
-          {modal}
-          <div id="modal-root" />
-        </main>
+        <CounterStoreProvider>
+          <main className="flex-1">
+            <SignOutButton/>
+            {children}
+            {modal}
+            <div id="modal-root" />
+          </main>
+        </CounterStoreProvider>
       </SignedIn>
       </body>
       </html>

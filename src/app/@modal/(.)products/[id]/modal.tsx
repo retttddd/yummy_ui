@@ -19,12 +19,11 @@ export function Modal({ children }: { children: React.ReactNode }) {
   }
 
   return createPortal(
-    <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-[1000]">
+    <div className="absolute inset-0 bg-black/70 flex items-center justify-center z-[1000]">
       <dialog
         ref={dialogRef}
         className="w-[80%] max-w-[500px] max-h-[90vh] bg-white rounded-xl p-5 relative overflow-auto border-none m-auto"
         onClose={onDismiss}
-        style={{ position: 'fixed', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}
       >
         <div className="flex flex-col items-center justify-center">
           {children}

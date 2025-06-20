@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { getOptionsForProduct, getProducts } from "~/server/queries";
 import Link from "next/link";
+import { useCounterStore } from "~/providers/order-store-provider";
 
 interface Product {
   id: number;
@@ -14,7 +15,7 @@ interface Product {
 
 function ProductCard({ product }: { product: Product }) {
   return (
-    <div className="flex flex-wrap contain-content backdrop-blur-lg bg-white/10 border border-white/20 rounded-2xl p-6 h-full max-w-lg shadow-2xl">
+    <div className="flex flex-wrap contain-content backdrop-blur-lg bg-white/10 border border-white/20 rounded-2xl p-6 h-auto max-w-lg shadow-2xl">
       <div className="flex gap-2 flex-col">
         <Link href={`/products/${product.id}`}>
           <Image
@@ -35,8 +36,6 @@ function ProductCard({ product }: { product: Product }) {
 
 export default async function HomePage() {
   const products = await getProducts();
-  //const categories = await getOptionsForProduct({ groupName: "Size", productId: 2 });
-
   return (
     <main className="flex min-h-screen items-center justify-center bg-gradient-to-br from-[#2e026d] to-[#15162c] text-white px-4">
         <div className="flex flex-wrap justify-center gap-4 p-4">
