@@ -9,9 +9,15 @@ export function Modal({ children }: { children: React.ReactNode }) {
   const dialogRef = useRef<ElementRef<'dialog'>>(null);
 
   useEffect(() => {
-    if (!dialogRef.current?.open) {
-      dialogRef.current?.showModal();
+    const dialog = dialogRef.current;
+    if (dialog && !dialog.open) {
+      dialog.showModal();
     }
+    document.body.style.overflow = 'hidden';
+
+    return () => {
+      document.body.style.overflow = '';
+    };
   }, []);
 
   function onDismiss() {
@@ -19,7 +25,7 @@ export function Modal({ children }: { children: React.ReactNode }) {
   }
 
   return createPortal(
-    <div className="absolute inset-0 bg-black/70 flex items-center justify-center z-[1000]">
+    <div className="absolute inset-0 bg-black/70 flex items-center justify-center z-40">
       <dialog
         ref={dialogRef}
         className="w-[80%] max-w-[500px] max-h-[90vh] bg-white rounded-xl p-5 relative overflow-auto border-none m-auto"

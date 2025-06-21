@@ -39,6 +39,7 @@ const ProductModal = React.memo(function ProductModal({ product, sizeOptions }: 
     addPosition(item);
     toast.success(`${item.name} is in your cart!`, {
       unstyled: true,
+      duration: 90000000,
       position: 'bottom-center',
       classNames: {
         toast: ` absolute z-50 bg-white/5 flex flex-row gap-5 items-center text-white border border-white/10 rounded-xl p-6 backdrop-blur shadow-[0_0_12px_rgba(255,255,255,0.4),0_0_24px_rgba(170,0,255,0.35)]`,
@@ -57,7 +58,7 @@ const ProductModal = React.memo(function ProductModal({ product, sizeOptions }: 
   };
 
   return (
-    <div className="w-full z flex flex-col gap-4 text-lg">
+    <div className="w-full flex flex-col gap-4 text-lg">
       <h1 className="text-2xl font-semibold text-center mb-2">Specify your order</h1>
       <div className="flex flex-col sm:flex-row gap-6 items-center sm:items-start">
         <div className="relative w-[210px] h-[210px]">
