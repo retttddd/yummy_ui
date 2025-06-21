@@ -16,7 +16,7 @@ function ProductCard({ product }: { product: Product }) {
   return (
     <div className="flex flex-wrap contain-content backdrop-blur-lg bg-white/10 border border-white/20 rounded-2xl p-6 h-auto max-w-lg shadow-2xl">
       <div className="flex gap-2 flex-col">
-        <Link href={`/products/${product.id}`}>
+        <Link rel='preload' href={`/products/${product.id}`}>
           <Image
             src={product.urlToImage}
             style={{ objectFit: "contain", borderRadius: "8px", marginBottom: "1rem"}}
@@ -27,7 +27,7 @@ function ProductCard({ product }: { product: Product }) {
         </Link>
         <div>{product.nameProduct}</div>
         <div>{product.price} pln</div>
-        <button  className="mt-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded"> <Link href={`/products/${product.id}`}> Configure</Link></button>
+        <button  className="mt-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded"> <Link rel='preload' href={`/products/${product.id}`}> Configure</Link></button>
       </div>
     </div>
   );
