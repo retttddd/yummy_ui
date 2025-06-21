@@ -1,4 +1,5 @@
 import "~/styles/globals.css";
+
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import { type Metadata } from "next";
 import { Geist } from "next/font/google";
@@ -13,6 +14,7 @@ import LoggedOutContent from "~/app/_components/loggedOutContent";
 import { getCompany, getProducts } from "~/server/queries";
 import { CounterStoreProvider } from "~/providers/order-store-provider";
 import TopBar from "~/app/_components/topBar";
+import { Toaster } from "sonner";
 
 
 export const metadata: Metadata = {
@@ -55,6 +57,7 @@ export default async function RootLayout({
             {modal}
             <div id="modal-root" />
           </main>
+          <Toaster />
       </SignedIn>
       </body>
       </html>

@@ -6,7 +6,7 @@ export default function Page() {
   const { positions } = useCounterStore((state) => state);
   const CountFullPrice = positions.reduce((acc, item) => acc + item.price, 0);
   return (
-    <main className="flex h-screen flex-col justify-between bg-gradient-to-br from-[#2e026d] to-[#15162c] px-4 text-white">
+    <main className="flex flex-col min-h-screen justify-between bg-gradient-to-br from-[#2e026d] to-[#15162c] px-4 text-white">
       <div>
         {positions.map((product, index) => (
           <div
