@@ -10,6 +10,7 @@ export function Modal({ children }: { children: React.ReactNode }) {
   const dialogRef = useRef<ElementRef<'dialog'>>(null);
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     const dialog = dialogRef.current;
     if (dialog && !dialog.open) {
       try {
@@ -35,8 +36,8 @@ export function Modal({ children }: { children: React.ReactNode }) {
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      transition={{ duration: 0.3 }}
-      className="fixed inset-0 bg-black/70 z-40 flex items-center justify-center"
+      transition={{ duration: 0.4 }}
+      className="fixed inset-0 bg-black/70 z-10 flex items-center justify-center"
     >
       <dialog
         ref={dialogRef}

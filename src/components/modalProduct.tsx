@@ -41,7 +41,7 @@ const ProductModal = React.memo(function ProductModal({ product, sizeOptions }: 
     toast.success(`${item.name} is in your cart!`, {
       unstyled: true,
       duration: 900,
-      position: 'bottom-center',
+      position: 'top-center',
       classNames: {
         toast: ` absolute z-50 bg-white/5 flex flex-row gap-5 items-center text-white border border-white/10 rounded-xl p-6 backdrop-blur shadow-[0_0_12px_rgba(255,255,255,0.4),0_0_24px_rgba(170,0,255,0.35)]`,
         title: "text-white font-bold",
