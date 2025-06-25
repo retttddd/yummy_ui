@@ -4,6 +4,7 @@ import { createStore } from 'zustand/vanilla'
 export type OrderItem = {
   name: string
   price: number
+  imageUrl: string
   size: string
 }
 

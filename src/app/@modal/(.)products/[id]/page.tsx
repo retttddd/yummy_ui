@@ -2,6 +2,7 @@
 import { Modal } from "./modal";
 import { getOptionsForProduct, getProductsByID } from "~/server/queries";
 import ProductModal from "~/components/modalProduct";
+import { motion } from "motion/react"
 
 export default async function PhotoModal(
   {
@@ -16,5 +17,10 @@ export default async function PhotoModal(
   ]);
   if (!product) return <Modal><div>Product not found</div></Modal>;
 
-  return <Modal><ProductModal product={product} sizeOptions={sizeOptions}/></Modal>
+  return(
+      <Modal>
+        <ProductModal product={product} sizeOptions={sizeOptions}/>
+      </Modal>
+  )
+
 }
