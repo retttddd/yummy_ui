@@ -19,7 +19,7 @@ export default function Page() {
           {positions.map((product, index) => (
             <div
               key={index}
-              className="m-3.5 flex max-h-50 max-w-1/3 flex-wrap rounded-2xl border border-white/20 bg-white/10 p-6 shadow-2xl backdrop-blur-lg contain-content"
+              className="m-3.5 flex max-h-50 max-w-auto flex-wrap rounded-2xl border border-white/20 bg-white/10 p-6 shadow-2xl backdrop-blur-lg contain-content"
             >
                   <CartComponent
                     productName={product.name}
