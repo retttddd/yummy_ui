@@ -3,6 +3,7 @@
 import { type ElementRef, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { createPortal } from 'react-dom';
+import { motion } from "framer-motion"; // Use framer-motion, not "motion/react"
 
 export function Modal({ children }: { children: React.ReactNode }) {
   const router = useRouter();
@@ -11,21 +12,32 @@ export function Modal({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     const dialog = dialogRef.current;
     if (dialog && !dialog.open) {
-      dialog.showModal();
+      try {
+        dialog.showModal();
+      } catch (e) {
+        console.error('Dialog showModal error:', e);
+      }
     }
     document.body.style.overflow = 'hidden';
-
     return () => {
       document.body.style.overflow = '';
     };
   }, []);
 
-  function onDismiss() {
+  const onDismiss = () => {
     router.back();
-  }
+  };
+
+  const modalRoot = document.getElementById('modal-root');
+  if (!modalRoot) return null;
 
   return createPortal(
-    <div className="absolute inset-0 bg-black/70 flex items-center justify-center z-40">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.3 }}
+      className="fixed inset-0 bg-black/70 z-40 flex items-center justify-center"
+    >
       <dialog
         ref={dialogRef}
         className="w-[80%] max-w-[500px] max-h-[90vh] bg-white rounded-xl p-5 relative overflow-auto border-none m-auto"
@@ -42,7 +54,7 @@ export function Modal({ children }: { children: React.ReactNode }) {
           ✕
         </button>
       </dialog>
-    </div>,
-    document.getElementById('modal-root')!
+    </motion.div>,
+    modalRoot
   );
 }

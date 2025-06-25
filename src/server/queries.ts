@@ -3,10 +3,11 @@ import { db } from "~/server/db";
 import { and, eq } from "drizzle-orm";
 import { productOptionGroups, productOptionValues, products } from "~/server/db/schema";
 import type { GetOptionsParams } from "~/server/types";
+import { cache } from "react";
 
-export async function getProducts() {
+export const getProducts = cache(async () => {
   return await db.query.products.findMany();
-}
+});
 
 export async function getProductsByID(productID: number) {
   return await db.query.products.findFirst({

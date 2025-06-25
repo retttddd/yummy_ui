@@ -1,7 +1,7 @@
 import React from "react";
 import { useCounterStore } from "~/providers/order-store-provider";
 import Image from "next/image";
-import { motion } from "motion/react";
+import { motion } from "framer-motion";
 
 type CartComponentProps = {
   productName: string;
