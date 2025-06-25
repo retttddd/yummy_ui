@@ -1,11 +1,20 @@
-"use client";
+'use client';
 import { useCounterStore } from "~/providers/order-store-provider";
 import CartComponent from "~/app/_components/checkout";
 import { motion } from 'framer-motion';
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 export default function Page() {
   const { positions } = useCounterStore((state) => state);
   const CountFullPrice = positions.reduce((acc, item) => acc + item.price, 0);
+  const router = useRouter()
+
+  useEffect(() => {
+    if(positions.length === 0) {
+      router.push('/')
+    }
+  }, [positions, router])
   return (
     <motion.div
       animate={{
