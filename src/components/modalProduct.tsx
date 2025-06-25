@@ -6,6 +6,19 @@ import { Label } from "./ui/label";
 import { useCounterStore } from "~/providers/order-store-provider";
 import { toast } from "sonner";
 
+// Toast configuration for consistent styling
+const successToastConfig = {
+  unstyled: true,
+  duration: 900,
+  position: 'top-center' as const,
+  classNames: {
+    toast: ` absolute z-50 bg-white/5 flex flex-row gap-5 items-center text-white border border-white/10 rounded-xl p-6 backdrop-blur shadow-[0_0_12px_rgba(255,255,255,0.4),0_0_24px_rgba(170,0,255,0.35)]`,
+    title: "text-white font-bold",
+    description: "text-sm text-white/80",
+    closeButton: "text-white hover:text-purple-300",
+  },
+};
+
 interface Product {
   id: number;
   nameProduct: string;
@@ -30,7 +43,7 @@ const ProductModal = React.memo(function ProductModal({ product, sizeOptions }: 
 
   const { addPosition } = useCounterStore((state) => state);
 
-  const handleAddItem = () => {
+  const handleAddItem = React.useCallback(() => {
     const item = {
       name: product.nameProduct,
       price: finalPrice,
@@ -38,25 +51,15 @@ const ProductModal = React.memo(function ProductModal({ product, sizeOptions }: 
       imageUrl: product.urlToImage,
     };
     addPosition(item);
-    toast.success(`${item.name} is in your cart!`, {
-      unstyled: true,
-      duration: 900,
-      position: 'top-center',
-      classNames: {
-        toast: ` absolute z-50 bg-white/5 flex flex-row gap-5 items-center text-white border border-white/10 rounded-xl p-6 backdrop-blur shadow-[0_0_12px_rgba(255,255,255,0.4),0_0_24px_rgba(170,0,255,0.35)]`,
-        title: "text-white font-bold",
-        description: "text-sm text-white/80",
-        closeButton: "text-white hover:text-purple-300",
-      },
-    });
-  };
+    toast.success(`${item.name} is in your cart!`, successToastConfig);
+  }, [product.nameProduct, product.urlToImage, finalPrice, selectedSize, addPosition]);
 
-  const changePrice = (value: string) => {
+  const changePrice = React.useCallback((value: string) => {
     const option = sizeOptions.find((o) => o.value === value);
     const multiplier = option?.priceMultiplier ?? 0;
     setSelectedSize(option?.value ?? null);
     setFinalPrice(basePrice + multiplier);
-  };
+  }, [sizeOptions, basePrice]);
 
   return (
     <div className="w-full flex flex-col gap-4 text-lg">
@@ -66,7 +69,8 @@ const ProductModal = React.memo(function ProductModal({ product, sizeOptions }: 
           <Image
             src={product.urlToImage}
             fill
-            sizes="100vw, 50vw, 33vw"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            priority={true}
             style={{ objectFit: "cover", borderRadius: "8px" }}
             alt={product.nameProduct}
           />

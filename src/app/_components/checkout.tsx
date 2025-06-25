@@ -10,11 +10,11 @@ type CartComponentProps = {
   index: number;
 };
 
-export default function CartComponent({ productName, price, index, imageUrl }: CartComponentProps) {
-  const removePosition = useCounterStore( (state) => state.removePosition)
-  const handleRemove = () => {
+const CartComponent =  React.memo(function CartComponent({ productName, price, index, imageUrl }: CartComponentProps) {
+  const removePosition = useCounterStore((state) => state.removePosition);
+  const handleRemove = React.useCallback(() => {
     removePosition(index);
-  };
+  }, [removePosition, index]);
 
   return (
     <div className="flex w-full flex-row-reverse justify-between">
@@ -43,6 +43,7 @@ export default function CartComponent({ productName, price, index, imageUrl }: C
         />
       </div>
     </div>
-
   );
-}
+});
+
+export default CartComponent;

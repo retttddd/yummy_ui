@@ -36,7 +36,6 @@ export default async function RootLayout({
   return (
     <ClerkProvider>
       <CounterStoreProvider>
-      <SpeedInsights/>
       <html lang="en" className={geist.variable}>
       <body className="min-h-screen flex flex-col">
       { TopBar()}
@@ -59,6 +58,7 @@ export default async function RootLayout({
           </main>
           <Toaster />
       </SignedIn>
+      <SpeedInsights/>
       </body>
       </html>
       </CounterStoreProvider>

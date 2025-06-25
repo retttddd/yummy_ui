@@ -9,17 +9,17 @@ export const getProducts = cache(async () => {
   return await db.query.products.findMany();
 });
 
-export async function getProductsByID(productID: number) {
+export const getProductsByID = cache(async (productID: number) => {
   return await db.query.products.findFirst({
     where: eq(products.id, productID),
   });
-}
+});
 
-export async function getCompany() {
+export const getCompany = cache(async () => {
   return await db.query.companies.findMany();
-}
+});
 
-export async function getOptionsForProduct(params: GetOptionsParams) {
+export const getOptionsForProduct = cache(async (params: GetOptionsParams) => {
   const { groupName, productId } = params;
 
   return db
@@ -43,4 +43,4 @@ export async function getOptionsForProduct(params: GetOptionsParams) {
         )
         : eq(productOptionGroups.name, groupName)
     );
-}
+});
