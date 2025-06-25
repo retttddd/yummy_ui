@@ -5,7 +5,6 @@ import { motion } from 'framer-motion';
 
 export default function Page() {
   const { positions } = useCounterStore((state) => state);
-  console.log(positions);
   const CountFullPrice = positions.reduce((acc, item) => acc + item.price, 0);
   return (
     <motion.div

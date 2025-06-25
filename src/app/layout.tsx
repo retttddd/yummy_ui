@@ -11,7 +11,6 @@ import {
   SignOutButton,
 } from "@clerk/nextjs";
 import LoggedOutContent from "~/app/_components/loggedOutContent";
-import { getCompany, getProducts } from "~/server/queries";
 import { CounterStoreProvider } from "~/providers/order-store-provider";
 import TopBar from "~/app/_components/topBar";
 import { Toaster } from "sonner";
@@ -55,10 +54,10 @@ export default async function RootLayout({
             {children}
             {modal}
             <div id="modal-root" />
+            <SpeedInsights/>
           </main>
           <Toaster />
       </SignedIn>
-      <SpeedInsights/>
       </body>
       </html>
       </CounterStoreProvider>
